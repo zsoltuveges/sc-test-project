@@ -30,17 +30,13 @@ public class UserService {
 
     public void depositAmount(UserModel user, Long amount) {
         user.deposit(amount);
-        Transaction transaction = new Transaction(LocalDateTime.now(), amount, user.getAmount());
-        transactionService.save(transaction);
-        user.addTransactionToHistory(transaction);
+        savingTransactionOnTransfer(user, amount);
         userRepository.save(user);
     }
 
     public void withdrawAmount(UserModel user, Long amount) {
         user.withdraw(amount);
-        Transaction transaction = new Transaction(LocalDateTime.now(), 0 - amount, user.getAmount());
-        transactionService.save(transaction);
-        user.addTransactionToHistory(transaction);
+        savingTransactionOnTransfer(user, 0-amount);
         userRepository.save(user);
     }
 
