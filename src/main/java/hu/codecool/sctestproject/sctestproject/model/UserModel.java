@@ -47,4 +47,8 @@ public class UserModel {
     public void deposit(Long amount) {
         this.amount += amount;
     }
+
+    public void withdraw(Long amount) {
+        this.amount -= amount;
+    }
 }

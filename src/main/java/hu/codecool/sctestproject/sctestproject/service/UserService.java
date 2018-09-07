@@ -26,4 +26,9 @@ public class UserService {
         user.deposit(amount);
         userRepository.save(user);
     }
+
+    public void withdrawAmount(UserModel user, Long amount) {
+        user.withdraw(amount);
+        userRepository.save(user);
+    }
 }

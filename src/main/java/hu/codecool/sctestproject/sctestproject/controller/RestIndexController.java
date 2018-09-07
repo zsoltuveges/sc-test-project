@@ -31,6 +31,11 @@ public class RestIndexController {
 
     @PostMapping("/{userid}/withdraw")
     public String withdraw(@PathVariable("userid") Long userId, @RequestParam Long amount) {
+        Optional<UserModel> user = userService.getUserById(userId);
+        if (!user.isPresent()) {
+            return "No user with this id";
+        }
+        userService.withdrawAmount(user.get(), amount);
         return "Success withdraw";
     }
 }
