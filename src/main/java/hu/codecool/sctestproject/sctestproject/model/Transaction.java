@@ -13,8 +13,6 @@ public class Transaction {
     private Long amount;
     private Long balance;
 
-    @ManyToOne
-    private Long userId;
 
     public Transaction() {
     }
