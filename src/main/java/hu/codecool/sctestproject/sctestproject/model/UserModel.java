@@ -3,6 +3,7 @@ package hu.codecool.sctestproject.sctestproject.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class UserModel {
@@ -64,5 +65,19 @@ public class UserModel {
 
     public void withdraw(Long amount) {
         this.amount -= amount;
+    }
+
+    public List<Transaction> getDepositTransactionHistory() {
+        return transactionHistory.stream().filter(amount -> amount.getAmount() > 0L).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactionHistoryByType(String type) {
+        switch (type) {
+            case "deposit":
+                return transactionHistory.stream().filter(amount -> amount.getAmount() > 0L).collect(Collectors.toList());
+            case "withdraw":
+                return transactionHistory.stream().filter(amount -> amount.getAmount() < 0L).collect(Collectors.toList());
+        }
+        return null;
     }
 }
