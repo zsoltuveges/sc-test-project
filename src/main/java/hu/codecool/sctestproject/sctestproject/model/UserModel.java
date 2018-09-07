@@ -43,4 +43,8 @@ public class UserModel {
     public void setAmount(Long amount) {
         this.amount = amount;
     }
+
+    public void deposit(Long amount) {
+        this.amount += amount;
+    }
 }

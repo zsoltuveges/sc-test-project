@@ -21,4 +21,9 @@ public class UserService {
     public Optional<UserModel> getUserById(Long id) {
         return userRepository.findById(id);
     }
+
+    public void depositAmount(UserModel user, Long amount) {
+        user.deposit(amount);
+        userRepository.save(user);
+    }
 }
