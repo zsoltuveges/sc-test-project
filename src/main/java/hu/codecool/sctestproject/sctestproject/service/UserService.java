@@ -3,6 +3,7 @@ package hu.codecool.sctestproject.sctestproject.service;
 import hu.codecool.sctestproject.sctestproject.model.Transaction;
 import hu.codecool.sctestproject.sctestproject.model.UserModel;
 import hu.codecool.sctestproject.sctestproject.repository.UserRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,9 +58,18 @@ public class UserService {
         userModelFrom.withdraw(transferAmount);
         userModelTo.deposit(transferAmount);
 
+        savingTransactionOnTransfer(userModelFrom, 0-transferAmount);
+        savingTransactionOnTransfer(userModelTo, transferAmount);
+
         userRepository.save(userModelFrom);
         userRepository.save(userModelTo);
 
         return true;
+    }
+
+    private void savingTransactionOnTransfer(UserModel user, Long transferAmount) {
+        Transaction transaction = new Transaction(LocalDateTime.now(), transferAmount, user.getAmount());
+        transactionService.save(transaction);
+        user.addTransactionToHistory(transaction);
     }
 }
