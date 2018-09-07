@@ -1,9 +1,8 @@
 package hu.codecool.sctestproject.sctestproject.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class UserModel {
@@ -12,6 +11,9 @@ public class UserModel {
     private Long id;
     private String username;
     private Long amount;
+
+    @OneToMany
+    private List<Transaction> transactionHistory = new ArrayList<>();
 
     public UserModel(String username) {
         this.username = username;
@@ -42,6 +44,14 @@ public class UserModel {
 
     public void setAmount(Long amount) {
         this.amount = amount;
+    }
+
+    public List<Transaction> getTransactionHistory() {
+        return transactionHistory;
+    }
+
+    public void setTransactionHistory(List<Transaction> transactionHistory) {
+        this.transactionHistory = transactionHistory;
     }
 
     public void deposit(Long amount) {
