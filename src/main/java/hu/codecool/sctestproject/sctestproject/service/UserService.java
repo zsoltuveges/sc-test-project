@@ -31,4 +31,24 @@ public class UserService {
         user.withdraw(amount);
         userRepository.save(user);
     }
+
+    public boolean transfer(Long transferFrom, Long transferTo, Long transferAmount) {
+        Optional<UserModel> userFrom = getUserById(transferFrom);
+        Optional<UserModel> userTo = getUserById(transferTo);
+        if (!userFrom.isPresent()) {
+            return false;
+        }
+        if (!userTo.isPresent()) {
+            return false;
+        }
+        UserModel userModelFrom = userFrom.get();
+        UserModel userModelTo = userTo.get();
+        userModelFrom.withdraw(transferAmount);
+        userModelTo.deposit(transferAmount);
+
+        userRepository.save(userModelFrom);
+        userRepository.save(userModelTo);
+
+        return true;
+    }
 }
