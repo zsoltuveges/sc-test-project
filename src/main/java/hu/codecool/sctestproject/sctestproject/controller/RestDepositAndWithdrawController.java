@@ -9,15 +9,10 @@ import java.util.Optional;
 
 
 @RestController
-public class RestIndexController {
+public class RestDepositAndWithdrawController {
 
     @Autowired
     UserService userService;
-
-    @GetMapping("/")
-    public String index() {
-        return "hello";
-    }
 
     @PostMapping("/{userid}/deposit")
     public String deposit(@PathVariable("userid") Long userId, @RequestParam Long amount) {
