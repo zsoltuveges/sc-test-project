@@ -37,6 +37,9 @@ public class UserService {
 
     public void withdrawAmount(UserModel user, Long amount) {
         user.withdraw(amount);
+        Transaction transaction = new Transaction(LocalDateTime.now(), 0 - amount, user.getAmount());
+        transactionService.save(transaction);
+        user.addTransactionToHistory(transaction);
         userRepository.save(user);
     }
 
