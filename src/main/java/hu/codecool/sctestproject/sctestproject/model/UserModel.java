@@ -12,7 +12,7 @@ public class UserModel {
     private String username;
     private Long amount;
 
-    @OneToMany
+    @ElementCollection
     private List<Transaction> transactionHistory = new ArrayList<>();
 
     public UserModel(String username) {
@@ -52,6 +52,10 @@ public class UserModel {
 
     public void setTransactionHistory(List<Transaction> transactionHistory) {
         this.transactionHistory = transactionHistory;
+    }
+
+    public void addTransactionToHistory(Transaction transaction) {
+        transactionHistory.add(transaction);
     }
 
     public void deposit(Long amount) {
