@@ -11,6 +11,7 @@ POST /{userid}/withdraw?amount=
 
 **Get all transactions of user**
 GET /{userid}/transactions
+
 _Filter by type_
 GET /{userid}/transactions/deposit
 GET /{userid}/transactions/withdraw
